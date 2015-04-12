@@ -51,8 +51,7 @@ export default class App extends React.Component {
           this.props.path === '/' ?
           <div className="jumbotron">
             <div className="container text-center">
-              <h1>React</h1>
-              <p>Complex web apps made easy</p>
+              <h1>Senior Frontend Developer - trying to be a Javascript</h1>
             </div>
           </div> :
           <div className="container">
@@ -63,9 +62,7 @@ export default class App extends React.Component {
         <div className="navbar-footer">
           <div className="container">
             <p className="text-muted">
-              <span>© Your Company</span>
-              <span><a href="/">Home</a></span>
-              <span><a href="/privacy">Privacy</a></span>
+              <span>updated on April 12, 2015</span>
             </p>
           </div>
         </div>
