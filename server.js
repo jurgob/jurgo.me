@@ -52,32 +52,32 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var _ = _interopRequire(__webpack_require__(24));
-  
+
   var fs = _interopRequire(__webpack_require__(22));
-  
+
   var path = _interopRequire(__webpack_require__(25));
-  
+
   var express = _interopRequire(__webpack_require__(19));
-  
+
   var React = _interopRequire(__webpack_require__(1));
-  
+
   var Dispatcher = _interopRequire(__webpack_require__(3));
-  
+
   var ActionTypes = _interopRequire(__webpack_require__(2));
-  
+
   var AppStore = _interopRequire(__webpack_require__(6));
-  
+
   var server = express();
-  
-  server.set("port", process.env.PORT || 80);
+
+  server.set("port", process.env.PORT || 5000);
   server.use(express["static"](path.join(__dirname)));
-  
+
   //
   // Page API
   // -----------------------------------------------------------------------------
@@ -86,16 +86,16 @@ module.exports =
     var page = AppStore.getPage(urlPath);
     res.send(page);
   });
-  
+
   //
   // Server-side rendering
   // -----------------------------------------------------------------------------
-  
+
   // The top-level React component + HTML template for it
   var App = React.createFactory(__webpack_require__(10));
   var templateFile = path.join(__dirname, "templates/index.html");
   var template = _.template(fs.readFileSync(templateFile, "utf8"));
-  
+
   server.get("*", function (req, res) {
     var data = { description: "" };
     var app = new App({
@@ -114,7 +114,7 @@ module.exports =
     var html = template(data);
     res.send(html);
   });
-  
+
   // Load pages from the `/src/content/` folder into the AppStore
   (function () {
     var assign = __webpack_require__(4);
@@ -125,11 +125,11 @@ module.exports =
       var _getFilesWrapper = function getFiles(_x) {
         return _getFiles.apply(this, arguments);
       };
-  
+
       _getFilesWrapper.toString = function () {
         return _getFiles.toString();
       };
-  
+
       return _getFilesWrapper;
     })(function (dir) {
       var pages = [];
@@ -159,7 +159,7 @@ module.exports =
     });
     return getFiles(sourceDir);
   })();
-  
+
   server.listen(server.get("port"), function () {
     if (process.send) {
       process.send("online");
@@ -185,20 +185,20 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var keyMirror = _interopRequire(__webpack_require__(8));
-  
+
   module.exports = keyMirror({
-  
+
     LOAD_PAGE: null,
     LOAD_PAGE_SUCCESS: null,
     LOAD_PAGE_ERROR: null,
     CHANGE_LOCATION: null
-  
+
   });
 
 /***/ },
@@ -212,23 +212,23 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var Flux = _interopRequire(__webpack_require__(20));
-  
+
   var PayloadSources = _interopRequire(__webpack_require__(5));
-  
+
   var assign = _interopRequire(__webpack_require__(4));
-  
+
   /**
    * A singleton that operates as the central hub for application updates.
    * For more information visit https://facebook.github.io/flux/
    */
   var Dispatcher = assign(new Flux.Dispatcher(), {
-  
+
     /**
      * @param {object} action The details of the action, including the action's
      * type and additional data coming from the server.
@@ -240,7 +240,7 @@ module.exports =
       };
       this.dispatch(payload);
     },
-  
+
     /**
      * @param {object} action The details of the action, including the action's
      * type and additional data coming from the view.
@@ -252,9 +252,9 @@ module.exports =
       };
       this.dispatch(payload);
     }
-  
+
   });
-  
+
   module.exports = Dispatcher;
 
 /***/ },
@@ -271,42 +271,42 @@ module.exports =
    *
    * @providesModule Object.assign
    */
-  
+
   // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign
-  
+
   'use strict';
-  
+
   function assign(target, sources) {
     if (target == null) {
       throw new TypeError('Object.assign target cannot be null or undefined');
     }
-  
+
     var to = Object(target);
     var hasOwnProperty = Object.prototype.hasOwnProperty;
-  
+
     for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
       var nextSource = arguments[nextIndex];
       if (nextSource == null) {
         continue;
       }
-  
+
       var from = Object(nextSource);
-  
+
       // We don't currently support accessors nor proxies. Therefore this
       // copy cannot throw. If we ever supported this then we must handle
       // exceptions and side-effects. We don't support symbols so they won't
       // be transferred.
-  
+
       for (var key in from) {
         if (hasOwnProperty.call(from, key)) {
           to[key] = from[key];
         }
       }
     }
-  
+
     return to;
   }
-  
+
   module.exports = assign;
 
 
@@ -321,18 +321,18 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var keyMirror = _interopRequire(__webpack_require__(8));
-  
+
   module.exports = keyMirror({
-  
+
     VIEW_ACTION: null,
     SERVER_ACTION: null
-  
+
   });
 
 /***/ },
@@ -346,37 +346,37 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var Dispatcher = _interopRequire(__webpack_require__(3));
-  
+
   var ActionTypes = _interopRequire(__webpack_require__(2));
-  
+
   var PayloadSources = _interopRequire(__webpack_require__(5));
-  
+
   var EventEmitter = _interopRequire(__webpack_require__(18));
-  
+
   var assign = _interopRequire(__webpack_require__(4));
-  
+
   var CHANGE_EVENT = "change";
-  
+
   var pages = {};
   var loading = false;
-  
+
   if (true) {
     pages["/"] = { title: "Home Page" };
     pages["/privacy"] = { title: "Privacy Policy" };
   }
-  
+
   var AppStore = assign({}, EventEmitter.prototype, {
-  
+
     isLoading: function isLoading() {
       return loading;
     },
-  
+
     /**
      * Gets page data by the given URL path.
      *
@@ -389,7 +389,7 @@ module.exports =
         type: "notfound"
       };
     },
-  
+
     /**
      * Emits change event to all registered event listeners.
      *
@@ -398,7 +398,7 @@ module.exports =
     emitChange: function emitChange() {
       return this.emit(CHANGE_EVENT);
     },
-  
+
     /**
      * Register a new change event listener.
      *
@@ -407,7 +407,7 @@ module.exports =
     onChange: function onChange(callback) {
       this.on(CHANGE_EVENT, callback);
     },
-  
+
     /**
      * Remove change event listener.
      *
@@ -416,14 +416,14 @@ module.exports =
     off: function off(callback) {
       this.off(CHANGE_EVENT, callback);
     }
-  
+
   });
-  
+
   AppStore.dispatcherToken = Dispatcher.register(function (payload) {
     var action = payload.action;
-  
+
     switch (action.actionType) {
-  
+
       case ActionTypes.LOAD_PAGE:
         if (action.source === PayloadSources.VIEW_ACTION) {
           loading = true;
@@ -435,13 +435,13 @@ module.exports =
         }
         AppStore.emitChange();
         break;
-  
+
       default:
       // Do nothing
-  
+
     }
   });
-  
+
   module.exports = AppStore;
 
 /***/ },
@@ -458,9 +458,9 @@ module.exports =
    *
    * @providesModule invariant
    */
-  
+
   "use strict";
-  
+
   /**
    * Use invariant() to assert state which your program assumes to be true.
    *
@@ -471,14 +471,14 @@ module.exports =
    * The invariant message will be stripped in production, but the invariant
    * will remain to ensure logic does not differ in production.
    */
-  
+
   var invariant = function(condition, format, a, b, c, d, e, f) {
     if (true) {
       if (format === undefined) {
         throw new Error('invariant requires an error message argument');
       }
     }
-  
+
     if (!condition) {
       var error;
       if (format === undefined) {
@@ -494,12 +494,12 @@ module.exports =
           format.replace(/%s/g, function() { return args[argIndex++]; })
         );
       }
-  
+
       error.framesToPop = 1; // we don't care about invariant's own frame
       throw error;
     }
   };
-  
+
   module.exports = invariant;
 
 
@@ -518,11 +518,11 @@ module.exports =
    * @providesModule keyMirror
    * @typechecks static-only
    */
-  
+
   'use strict';
-  
+
   var invariant = __webpack_require__(7);
-  
+
   /**
    * Constructs an enumeration with keys equal to their value.
    *
@@ -556,7 +556,7 @@ module.exports =
     }
     return ret;
   };
-  
+
   module.exports = keyMirror;
 
 
@@ -571,21 +571,21 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var Dispatcher = _interopRequire(__webpack_require__(3));
-  
+
   var ActionTypes = _interopRequire(__webpack_require__(2));
-  
+
   var ExecutionEnvironment = _interopRequire(__webpack_require__(16));
-  
+
   var http = _interopRequire(__webpack_require__(26));
-  
+
   module.exports = {
-  
+
     navigateTo: function navigateTo(path, options) {
       if (ExecutionEnvironment.canUseDOM) {
         if (options && options.replace) {
@@ -594,19 +594,19 @@ module.exports =
           window.history.pushState({}, document.title, path);
         }
       }
-  
+
       Dispatcher.handleViewAction({
         actionType: ActionTypes.CHANGE_LOCATION,
         path: path
       });
     },
-  
+
     loadPage: function loadPage(path, cb) {
       Dispatcher.handleViewAction({
         actionType: ActionTypes.LOAD_PAGE,
         path: path
       });
-  
+
       http.get("/api/page" + path).accept("application/json").end(function (err, res) {
         Dispatcher.handleServerAction({
           actionType: ActionTypes.LOAD_PAGE,
@@ -619,7 +619,7 @@ module.exports =
         }
       });
     }
-  
+
   };
 
 /***/ },
@@ -633,46 +633,46 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-  
+
   var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
-  
+
   var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
-  
+
   var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-  
+
   __webpack_require__(15);
-  
+
   var React = _interopRequire(__webpack_require__(1));
-  
+
   var invariant = _interopRequire(__webpack_require__(7));
-  
+
   var AppActions = _interopRequire(__webpack_require__(9));
-  
+
   var AppStore = _interopRequire(__webpack_require__(6));
-  
+
   var Navbar = _interopRequire(__webpack_require__(12));
-  
+
   var ContentPage = _interopRequire(__webpack_require__(11));
-  
+
   var NotFoundPage = _interopRequire(__webpack_require__(13));
-  
+
   var App = (function (_React$Component) {
     function App() {
       _classCallCheck(this, App);
-  
+
       if (_React$Component != null) {
         _React$Component.apply(this, arguments);
       }
     }
-  
+
     _inherits(App, _React$Component);
-  
+
     _createClass(App, {
       componentDidMount: {
         value: function componentDidMount() {
@@ -696,12 +696,12 @@ module.exports =
           var page = AppStore.getPage(this.props.path);
           invariant(page !== undefined, "Failed to load page content.");
           this.props.onSetTitle(page.title);
-  
+
           if (page.type === "notfound") {
             this.props.onPageNotFound();
             return React.createElement(NotFoundPage, page);
           }
-  
+
           return React.createElement(
             "div",
             { className: "App" },
@@ -758,7 +758,7 @@ module.exports =
           if (event.button === 1 || event.metaKey || event.ctrlKey || event.shiftKey || event.defaultPrevented) {
             return;
           }
-  
+
           // Ensure link
           var el = event.target;
           while (el && el.nodeName !== "A") {
@@ -767,39 +767,39 @@ module.exports =
           if (!el || el.nodeName !== "A") {
             return;
           }
-  
+
           // Ignore if tag has
           // 1. "download" attribute
           // 2. rel="external" attribute
           if (el.getAttribute("download") || el.getAttribute("rel") === "external") {
             return;
           }
-  
+
           // Ensure non-hash for the same path
           var link = el.getAttribute("href");
           if (el.pathname === location.pathname && (el.hash || link === "#")) {
             return;
           }
-  
+
           // Check for mailto: in the href
           if (link && link.indexOf("mailto:") > -1) {
             return;
           }
-  
+
           // Check target
           if (el.target) {
             return;
           }
-  
+
           // X-origin
           var origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
           if (!(el.href && el.href.indexOf(origin) === 0)) {
             return;
           }
-  
+
           // Rebuild path
           var path = el.pathname + el.search + (el.hash || "");
-  
+
           event.preventDefault();
           AppActions.loadPage(path, function () {
             AppActions.navigateTo(path);
@@ -807,12 +807,12 @@ module.exports =
         }
       }
     });
-  
+
     return App;
   })(React.Component);
-  
+
   module.exports = App;
-  
+
   App.propTypes = {
     path: React.PropTypes.string.isRequired,
     onSetTitle: React.PropTypes.func.isRequired,
@@ -831,32 +831,32 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-  
+
   var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
-  
+
   var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
-  
+
   var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-  
+
   var React = _interopRequire(__webpack_require__(1));
-  
+
   var ContentPage = (function (_React$Component) {
     function ContentPage() {
       _classCallCheck(this, ContentPage);
-  
+
       if (_React$Component != null) {
         _React$Component.apply(this, arguments);
       }
     }
-  
+
     _inherits(ContentPage, _React$Component);
-  
+
     _createClass(ContentPage, {
       render: {
         value: function render() {
@@ -864,18 +864,18 @@ module.exports =
           var className = _props.className;
           var body = _props.body;
           var other = _props.other;
-  
+
           return React.createElement("div", _extends({ className: "ContentPage " + className,
             dangerouslySetInnerHTML: { __html: body } }, other));
         }
       }
     });
-  
+
     return ContentPage;
   })(React.Component);
-  
+
   module.exports = ContentPage;
-  
+
   ContentPage.propTypes = {
     body: React.PropTypes.string.isRequired
   };
@@ -891,30 +891,30 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-  
+
   var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
-  
+
   var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
-  
+
   var React = _interopRequire(__webpack_require__(1));
-  
+
   var Navbar = (function (_React$Component) {
     function Navbar() {
       _classCallCheck(this, Navbar);
-  
+
       if (_React$Component != null) {
         _React$Component.apply(this, arguments);
       }
     }
-  
+
     _inherits(Navbar, _React$Component);
-  
+
     _createClass(Navbar, {
       render: {
         value: function render() {
@@ -939,10 +939,10 @@ module.exports =
         }
       }
     });
-  
+
     return Navbar;
   })(React.Component);
-  
+
   module.exports = Navbar;
 
 /***/ },
@@ -956,32 +956,32 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
-  
+
   "use strict";
-  
+
   var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-  
+
   var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-  
+
   var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
-  
+
   var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
-  
+
   //require('./NotFoundPage.less');
-  
+
   var React = _interopRequire(__webpack_require__(1));
-  
+
   var NotFoundPage = (function (_React$Component) {
     function NotFoundPage() {
       _classCallCheck(this, NotFoundPage);
-  
+
       if (_React$Component != null) {
         _React$Component.apply(this, arguments);
       }
     }
-  
+
     _inherits(NotFoundPage, _React$Component);
-  
+
     _createClass(NotFoundPage, {
       render: {
         value: function render() {
@@ -1002,10 +1002,10 @@ module.exports =
         }
       }
     });
-  
+
     return NotFoundPage;
   })(React.Component);
-  
+
   module.exports = NotFoundPage;
 
 /***/ },
@@ -1050,16 +1050,16 @@ module.exports =
    *
    * @providesModule ExecutionEnvironment
    */
-  
+
   /*jslint evil: true */
-  
+
   "use strict";
-  
+
   var canUseDOM = !!(
     (typeof window !== 'undefined' &&
     window.document && window.document.createElement)
   );
-  
+
   /**
    * Simple, lightweight module assisting with the detection and context of
    * Worker. Helps avoid circular dependencies and allows code to reason about
@@ -1067,20 +1067,20 @@ module.exports =
    * `ReactWorker` dependency.
    */
   var ExecutionEnvironment = {
-  
+
     canUseDOM: canUseDOM,
-  
+
     canUseWorkers: typeof Worker !== 'undefined',
-  
+
     canUseEventListeners:
       canUseDOM && !!(window.addEventListener || window.attachEvent),
-  
+
     canUseViewport: canUseDOM && !!window.screen,
-  
+
     isInWorker: !canUseDOM // For now, this is true - might change in the future.
-  
+
   };
-  
+
   module.exports = ExecutionEnvironment;
 
 
