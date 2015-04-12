@@ -204,8 +204,8 @@ gulp.task('deploy', function() {
     .pipe($.if('**/robots.txt', !argv.production ?
       $.replace('Disallow:', 'Disallow: /') : $.util.noop()))
     .pipe($.ghPages({
-      remoteUrl: 'https://github.com/{name}/{name}.github.io.git',
-      branch: 'master'
+      remoteUrl: 'https://github.com/jurgob/jurgo.me.git',
+      branch: 'gh-pages'
     }));
 });
 
