@@ -1,8 +1,8 @@
 {
-  "name": "react-starter-kit",
+  "name": "jurgome",
   "private": true,
   "version": "0.0.0",
-  "description": "React / Flux  Starter Kit",
+  "description": "jurgo boemo personal web site",
   "repository": "https://github.com/kriasoft/react-starter-kit",
   "license": "MIT",
   "engines": {
