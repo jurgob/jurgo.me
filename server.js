@@ -75,7 +75,7 @@ module.exports =
   
   var server = express();
   
-  server.set("port", process.env.PORT || 5000);
+  server.set("port", process.env.PORT || 80);
   server.use(express["static"](path.join(__dirname)));
   
   //
